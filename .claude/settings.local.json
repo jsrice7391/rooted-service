@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(C:\\Users\\ronke\\IdeaProjects\\rooted-service\\**)",
+      "Write(C:\\Users\\ronke\\IdeaProjects\\rooted-service\\**)",
+      "Bash(psql:*)",
+      "Bash(where:*)",
+      "Bash(systeminfo:*)",
+      "Bash(findstr:*)",
+      "Bash(docker:*)",
+      "Bash(docker-compose up:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
