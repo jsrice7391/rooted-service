@@ -33,7 +33,7 @@ dependencies {
 
     // Database
     runtimeOnly("org.postgresql:postgresql")
-    implementation("org.hibernate.orm:hibernate-spatial:6.4.1")
+    implementation("org.hibernate.orm:hibernate-spatial:6.4.1.Final")
 
     // JWT Authentication
     implementation("io.jsonwebtoken:jjwt-api:0.12.3")
@@ -42,7 +42,7 @@ dependencies {
 
     // Flyway for database migrations
     implementation("org.flywaydb:flyway-core")
-    implementation("org.flywaydb:flyway-database-postgresql")
+    runtimeOnly("org.flywaydb:flyway-database-postgresql")
 
     // Development tools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
