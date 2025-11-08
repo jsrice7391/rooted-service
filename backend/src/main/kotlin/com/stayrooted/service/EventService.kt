@@ -117,12 +117,14 @@ class EventService(
         }
 
         return events.map { event ->
-            val distance = if (event.latitude != null && event.longitude != null) {
+            val lat = event.latitude
+            val lon = event.longitude
+            val distance = if (lat != null && lon != null) {
                 calculateDistance(
                     request.latitude,
                     request.longitude,
-                    event.latitude.toDouble(),
-                    event.longitude.toDouble()
+                    lat.toDouble(),
+                    lon.toDouble()
                 )
             } else null
 

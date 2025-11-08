@@ -42,7 +42,9 @@ dependencies {
 
     // Flyway for database migrations
     implementation("org.flywaydb:flyway-core")
-    runtimeOnly("org.flywaydb:flyway-database-postgresql")
+
+    // API Documentation
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
 
     // Development tools
     developmentOnly("org.springframework.boot:spring-boot-devtools")
