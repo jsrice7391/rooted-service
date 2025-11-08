@@ -8,14 +8,15 @@ const {
   deletePost
 } = require('../controllers/communityController');
 const { protect } = require('../middleware/auth');
+const { apiLimiter, createLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
-router.post('/posts', protect, createPost);
-router.get('/posts', protect, getPosts);
-router.get('/posts/:id', protect, getPost);
-router.post('/posts/:id/like', protect, likePost);
-router.post('/posts/:id/comments', protect, addComment);
-router.delete('/posts/:id', protect, deletePost);
+router.post('/posts', createLimiter, protect, createPost);
+router.get('/posts', apiLimiter, protect, getPosts);
+router.get('/posts/:id', apiLimiter, protect, getPost);
+router.post('/posts/:id/like', apiLimiter, protect, likePost);
+router.post('/posts/:id/comments', createLimiter, protect, addComment);
+router.delete('/posts/:id', apiLimiter, protect, deletePost);
 
 module.exports = router;

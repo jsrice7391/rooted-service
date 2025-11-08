@@ -14,15 +14,34 @@ exports.getNearbyUsers = async (req, res) => {
       });
     }
 
+    // Validate and sanitize input
+    const lat = parseFloat(latitude);
+    const lng = parseFloat(longitude);
+    const maxDist = parseInt(maxDistance, 10);
+
+    if (isNaN(lat) || isNaN(lng) || lat < -90 || lat > 90 || lng < -180 || lng > 180) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid latitude or longitude values'
+      });
+    }
+
+    if (isNaN(maxDist) || maxDist < 0 || maxDist > 500000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid maxDistance value (must be between 0 and 500000 meters)'
+      });
+    }
+
     const users = await User.find({
       _id: { $ne: req.user.id },
       'location.coordinates': {
         $near: {
           $geometry: {
             type: 'Point',
-            coordinates: [parseFloat(longitude), parseFloat(latitude)]
+            coordinates: [lng, lat]
           },
-          $maxDistance: parseInt(maxDistance)
+          $maxDistance: maxDist
         }
       }
     }).select('username firstName lastName location.city location.state faithJourney.beliefLevel');

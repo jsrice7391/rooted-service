@@ -7,13 +7,14 @@ const {
   getConnections
 } = require('../controllers/userController');
 const { protect } = require('../middleware/auth');
+const { apiLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
-router.get('/nearby', protect, getNearbyUsers);
-router.get('/connections', protect, getConnections);
-router.get('/:id', protect, getUserProfile);
-router.post('/connect/:id', protect, addConnection);
-router.delete('/connect/:id', protect, removeConnection);
+router.get('/nearby', apiLimiter, protect, getNearbyUsers);
+router.get('/connections', apiLimiter, protect, getConnections);
+router.get('/:id', apiLimiter, protect, getUserProfile);
+router.post('/connect/:id', apiLimiter, protect, addConnection);
+router.delete('/connect/:id', apiLimiter, protect, removeConnection);
 
 module.exports = router;

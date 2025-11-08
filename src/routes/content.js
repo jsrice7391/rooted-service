@@ -7,13 +7,14 @@ const {
   getProgressHistory
 } = require('../controllers/contentController');
 const { protect } = require('../middleware/auth');
+const { apiLimiter } = require('../middleware/rateLimiter');
 
 const router = express.Router();
 
-router.get('/today', protect, getTodayContent);
-router.get('/progress/history', protect, getProgressHistory);
-router.get('/:id', protect, getContent);
-router.get('/', protect, getAllContent);
-router.post('/:id/complete', protect, completeContent);
+router.get('/today', apiLimiter, protect, getTodayContent);
+router.get('/progress/history', apiLimiter, protect, getProgressHistory);
+router.get('/:id', apiLimiter, protect, getContent);
+router.get('/', apiLimiter, protect, getAllContent);
+router.post('/:id/complete', apiLimiter, protect, completeContent);
 
 module.exports = router;
